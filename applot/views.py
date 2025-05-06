@@ -56,3 +56,8 @@ def delete_student(request, pk):
 def total_student_count(request):
     count = Student.objects.count()
     return Response({'total_students': count}, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def get_student_names(request):
+    names = Student.objects.values_list('name', flat=True)
+    return Response({'student_names': list(names)})
