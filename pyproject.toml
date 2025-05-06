@@ -1,5 +1,5 @@
 [tool.semantic_release]
-version_variable = "projects/app/applot/__init__.py:__version__"
+version_variable = "projects/app/__init__.py:__version__"
 version_source = "tag"
 upload_to_pypi = false
 commit_parser = "conventional"

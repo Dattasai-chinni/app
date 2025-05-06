@@ -43,7 +43,4 @@ jobs:
         run: |
           semantic-release publish 
 
-      # Optionally, force push to the main branch (if safe to do so)
-      - name: Force push to main branch (if needed)
-        run: |
-          git push --force
+     
