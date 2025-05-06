@@ -41,7 +41,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}  # You can replace with a personal access token if required
         run: |
-          semantic-release publish -vv
+          semantic-release publish --verbose
 
       # Optionally, force push to the main branch (if safe to do so)
       - name: Force push to main branch (if needed)
