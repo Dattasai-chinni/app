@@ -9,4 +9,6 @@ urlpatterns = [
     path('students/count/', views.total_student_count, name='total-student-count'),
     path('students/<int:pk>/delete/', views.delete_student, name='delete_student'),
     path('students/names/', views.get_student_names, name='student-names'),
+    path('students/search/', views.search_students_by_name, name='search_students_by_name'),
+
 ]

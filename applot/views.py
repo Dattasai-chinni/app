@@ -61,3 +61,14 @@ def total_student_count(request):
 def get_student_names(request):
     names = Student.objects.values_list('name', flat=True)
     return Response({'student_names': list(names)})
+
+
+@api_view(['GET'])
+def search_students_by_name(request):
+    name = request.query_params.get('name', None)
+    if name is None:
+        return Response({'error': 'Name query parameter is required'}, status=status.HTTP_400_BAD_REQUEST)
+
+    students = Student.objects.filter(name__icontains=name)
+    serializer = StudentSerializer(students, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
