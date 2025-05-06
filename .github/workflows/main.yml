@@ -23,7 +23,12 @@ jobs:
         run: |
           pip install python-semantic-release
 
-      - name: Run semantic-release
+      - name: Run semantic-release version
+        run: |
+          python -m semantic_release version  # This bumps the version
+
+      - name: Run semantic-release publish
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: semantic-release publish
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # This will automatically use the GitHub token for authentication
+        run: |
+          python -m semantic_release publish  # This pushes the version and tags
