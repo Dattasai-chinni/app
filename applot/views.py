@@ -52,3 +52,7 @@ def delete_student(request, pk):
     student.delete()
     return Response({'message': 'Deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
 
+@api_view(['GET'])
+def total_student_count(request):
+    count = Student.objects.count()
+    return Response({'total_students': count}, status=status.HTTP_200_OK)
