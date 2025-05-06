@@ -5,30 +5,45 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write  # Allow pushing commits and tags
+  pull-requests: write
+
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
+      # Checkout the repository code
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # 👈 Required for semantic-release to see tags
+          fetch-depth: 0  # Required for semantic-release to see tags
 
+      # Set up Python environment
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.12.2'
 
+      # Set up Git user for commits
+      - name: Set up Git user
+        run: |
+          git config --global user.email "chinnidattasai@gmail.com"
+          git config --global user.name "Dattasai-chinni"
+
+      # Install the required dependencies
       - name: Install dependencies
         run: |
           pip install python-semantic-release
 
-      - name: Run semantic-release version
-        run: |
-          python -m semantic_release version  # This bumps the version
-
-      - name: Run semantic-release publish
+      # Run semantic-release to bump the version and publish release
+      - name: Run semantic-release
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # This will automatically use the GitHub token for authentication
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}  # You can replace with a personal access token if required
         run: |
-          python -m semantic_release publish  # This pushes the version and tags
+          semantic-release publish -vv
+
+      # Optionally, force push to the main branch (if safe to do so)
+      - name: Force push to main branch (if needed)
+        run: |
+          git push --force
